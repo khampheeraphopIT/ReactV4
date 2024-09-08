@@ -63,7 +63,7 @@ const Contact = () => {
         console.log(result)
       })
       .catch((error) => console.error(error));
-  }, [])
+  }, [MySwal, navigate])
 
   return (
     <>

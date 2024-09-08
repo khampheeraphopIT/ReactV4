@@ -310,7 +310,7 @@ const Profile = () => {
                 <h6>THB 4000</h6>
                 <h4>PREMIER DELUXE VILLA</h4>
                 <ul>
-                  <li>Number of rooms: <span>1</span></li>
+                  <li>Number of rooms: <span>2</span></li>
                   <li>Area: <span>15 x 17m</span></li>
                   <li>Stay 2 Nights Extra Save <span>5%</span></li>
                 </ul>
@@ -328,7 +328,7 @@ const Profile = () => {
                 <h6>THB 5000</h6>
                 <h4>POOL VILLA</h4>
                 <ul>
-                  <li>Number of rooms: <span>1</span></li>
+                  <li>Number of rooms: <span>3</span></li>
                   <li>Area: <span>15 x 25m</span></li>
                   <li>Stay 2 Nights Extra Save <span>5%</span></li>
                 </ul>
@@ -346,7 +346,7 @@ const Profile = () => {
                 <h6>THB 6000</h6>
                 <h4>DELUXE VILLA</h4>
                 <ul>
-                  <li>Number of rooms: <span>2</span></li>
+                  <li>Number of rooms: <span>4</span></li>
                   <li>Area: <span>20 x 20m</span></li>
                   <li>Stay 2 Nights Extra Save <span>5%</span></li>
                 </ul>
@@ -361,10 +361,10 @@ const Profile = () => {
                   <img src={properties_05} alt="DELUXE VILLA" />
                 </Link>
                 <span className="category">Double Room</span>
-                <h6>THB 65000</h6>
+                <h6>THB 6500</h6>
                 <h4>PREMIER DELUXE VILLA</h4>
                 <ul>
-                  <li>Number of rooms: <span>3</span></li>
+                  <li>Number of rooms: <span>5</span></li>
                   <li>Area: <span>25 x 25m</span></li>
                   <li>Stay 2 Nights Extra Save <span>10%</span></li>
                 </ul>
@@ -382,7 +382,7 @@ const Profile = () => {
                 <h6>THB 7500</h6>
                 <h4>POOL VILLA</h4>
                 <ul>
-                  <li>Number of rooms: <span>4</span></li>
+                  <li>Number of rooms: <span>6</span></li>
                   <li>Area: <span>30 x 30m</span></li>
                   <li>Stay 2 Nights Extra Save <span>12%</span></li>
                 </ul>

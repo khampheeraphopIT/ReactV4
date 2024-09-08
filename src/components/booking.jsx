@@ -15,6 +15,7 @@ function Booking() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('token') !== null);
   const [inputs, setInputs] = useState({});
   const [user, setUser] = useState()
+  const [isLoaded, setIsLoaded] = useState();
   const location = useLocation();
   const { room } = location.state || {};
 
@@ -73,7 +74,8 @@ function Booking() {
     fetch('http://localhost:3333/booking', requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        setUser(result.user)
+        setIsLoaded(false);
         if (result.status === 'ok') {
           MySwal.fire({
             title: 'booking success',

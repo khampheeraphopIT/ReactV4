@@ -5,11 +5,10 @@ import SearchRoom from "./components/SearchRoom";
 import RoomDetails from "./components/RoomDetails";
 import Contact from "./components/Contact";
 import Login from './components/Login';
-import BookingDetail from './components/BookingDetail';
+import BookingDetail from './components/BookingDetails';
 import Register from "./components/Register";
 import Profile from "./components/Profile";
 import Boooking from "./components/booking"
-
 function App() {
     return (
         <BrowserRouter>
