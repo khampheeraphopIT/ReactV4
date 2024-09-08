@@ -11,20 +11,24 @@ import withReactContent from 'sweetalert2-react-content'
 function Booking() {
   const MySwal = withReactContent(Swal)
   const navigate = useNavigate();
-  const [isLoaded, setIsLoaded] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('token') !== null);
   const [inputs, setInputs] = useState({});
-
+  const [user, setUser] = useState()
   const location = useLocation();
   const { room } = location.state || {};
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setInputs(values => ({ ...values, [name]: value }));
+  };
 
   function generateRandomString(length) {
     const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let result = '';
     for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * charset.length);
-        result += charset[randomIndex];
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      result += charset[randomIndex];
     }
     return result;
   }
@@ -40,83 +44,54 @@ function Booking() {
     navigate('/login');
   }
 
-  const handleConfirmBooking = () => {
-    MySwal.fire({
-      title: 'Booking Success',
-      text: 'Your booking was successfull',
-      icon: 'success',
-      confirmButtonText: 'Booking Details',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate('/bookingDetails')
-      } else {
-        MySwal.fire({
-          title: 'Booking Failed',
-          text: 'Please try again',
-          icon: 'error',
-        })
-      }
-    }) 
-  }
-
-  const handleChange = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs(values => ({ ...values, [name]: value }))
-  }  
-  const bookingNumber = generateRandomString(8);
-  const [user, setUser] = useState({
-    fname: '',
-    lname: '',
-    email: '',
-    roomId: ''
-  })
 
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (!token) {
-      navigate('/login');
-      return;
-    }
+    const bookingNumber = generateRandomString(8);
 
     const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append('Content-Type', 'application/json');
+    const token = localStorage.getItem('token');
     if (token) {
-      myHeaders.append("Authorization", `Bearer ${token}`);
+      myHeaders.append('Authorization', `Bearer ${token}`);
     }
 
+    const raw = JSON.stringify({
+      bookingNumber,
+      roomId: room.NumberOfRooms,
+      checkIn: inputs.checkIn,
+      checkOut: inputs.checkOut,
+    });
+
     const requestOptions = {
-      method: "POST",
+      method: 'POST',
       headers: myHeaders,
-      redirect: "follow"
+      body: raw,
+      redirect: 'follow',
     };
 
-    fetch("http://localhost:3333/profile", requestOptions)
+    fetch('http://localhost:3333/booking', requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        console.log(result);
         if (result.status === 'ok') {
-          setUser({
-            
-
-            fname: result.user.fname,
-            lname: result.user.lname,
-            email: result.user.email,
-            roomId: result.user.roomId
-          })
-          setIsLoaded(false)
-        } else if (result.status === 'forbidden') {
           MySwal.fire({
-            html: <i>{result.message}</i>,
-            icon: 'error'
-          }).then((value) => {
-            navigate('/')
-          })
+            title: 'booking success',
+            icon: 'success',
+            confirmButtonText: 'Booking details'
+          }).then(() => {
+            localStorage.setItem('token', result.accessToken);
+            navigate('/profile');
+          });
+        } else {
+          MySwal.fire({
+            title: 'booking failure',
+            icon: 'error',
+          });
         }
-        console.log(result)
       })
       .catch((error) => console.error(error));
-  }, [MySwal, navigate])
+  };
 
   return (
     <>
@@ -152,17 +127,19 @@ function Booking() {
                   <li><Link to="/SearchRoom">Search Room</Link></li>
                   <li><Link to="/Contact">Contact Us</Link></li>
                   <li><Link to="/RoomDetails"><i className="fa fa-calendar"></i><span>Book Now</span></Link></li>
-                  {isLoggedIn ? (
+                  {isLoggedIn && user ? (
                     <li>
                       <Avatar
-                        src={user.image ? `data:image/jpeg;base64,${user.image}` : 'default-image-url'}
-                        alt={user.id}
+                        src={user?.image ? `data:image/jpeg;base64,${user.image}` : 'default-image-url'}
+                        alt={user?.id || "User Avatar"}
                         onClick={handleSidebarToggle}
                       />
                     </li>
                   ) : (
                     <li>
-                      <button onClick={handleSidebarToggle}>Login</button>
+                      <button onClick={handleSidebarToggle}>
+                        <Avatar src={'default-image-url'} />
+                      </button>
                     </li>
                   )}
                 </ul>
@@ -206,36 +183,12 @@ function Booking() {
               <div className='booking-form'>
                 <div className=''></div>
                 <form >
-                <label>RoomId
+                  <label>RoomId
                     <input
                       type="number"
-                      name="RoomId"
-                      value={inputs.roomId || ""}
+                      name="roomId"  // ตรวจสอบให้ตรงกับชื่อใน handleChange
+                      value={room.NumberOfRooms || ""}
                       onChange={handleChange}
-                    />
-                  </label>
-                  <label>Firstname
-                    <input
-                      type="text"
-                      name="Firstname"
-                      value={user.fname || ""}
-                      readOnly
-                    />
-                  </label>
-                  <label>Lastname
-                    <input
-                      type="text"
-                      name="Lastname"
-                      value={user.lname || ""}
-                      readOnly
-                    />
-                  </label>
-                  <label>Email
-                    <input
-                      type="email"
-                      name="Email"
-                      value={user.email || ""}
-                      readOnly
                     />
                   </label>
                   <label>CheckIn
@@ -260,15 +213,15 @@ function Booking() {
           </div>
         </div>
         {room && (
-        <div className='reservation-summary'>
-          <h4><strong>Reservation Summary</strong></h4>
-          <p>Room Name: <strong>{room.name}</strong></p>
-          <p>Price: <strong>THB {room.price}</strong></p>
-          <p>Number of Rooms: <strong>{room.NumberOfRooms}</strong></p>
-          <p>Area: <strong>{room.area}</strong></p>
-          <p><strong>Stay 2 Nights Extra Save 5%</strong></p>
-          <button className='confirm-booking-btn' onClick={handleConfirmBooking}>Confirm Booking</button>
-        </div>
+          <div className='reservation-summary'>
+            <h4><strong>Reservation Summary</strong></h4>
+            <p>Room Name: <strong>{room.name}</strong></p>
+            <p>Price: <strong>THB {room.price}</strong></p>
+            <p>Number of Rooms: <strong>{room.NumberOfRooms}</strong></p>
+            <p>Area: <strong>{room.area}</strong></p>
+            <p><strong>Stay 2 Nights Extra Save 5%</strong></p>
+            <button type='submit' className='confirm-booking-btn' onClick={handleSubmit}>Confirm Booking</button>
+          </div>
         )}
       </div>
 

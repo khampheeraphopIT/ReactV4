@@ -85,11 +85,11 @@ const RoomDetails = () => {
             // Dummy data, replace with actual fetch
             const rooms = [
                 { id: 1, type: 'single room', image: 'property-01.jpg', name: 'DELUXE VILLA', price: 3500, NumberOfRooms: 1, area: '15x15' },
-                { id: 2, type: 'single room', image: 'property-02.jpg', name: 'PREMIER DULUXE VILLA', price: 4000, NumberOfRooms: 1, area: '15x17' },
-                { id: 3, type: 'single room', image: 'property-03.jpg', name: 'POOL VILLA', price: 5000, NumberOfRooms: 1, area: '15x20' },
-                { id: 4, type: 'double room', image: 'property-04.jpg', name: 'DELUXE VILLA', price: 6000, NumberOfRooms: 2, area: '20x20' },
-                { id: 5, type: 'double room', image: 'property-05.jpg', name: 'PREMIER DELUXE VILLA', price: 6500, NumberOfRooms: 3, area: '25x25' },
-                { id: 6, type: 'double room', image: 'property-06.jpg', name: 'POOL VILLA', price: 7500, NumberOfRooms: 4, area: '30x30' }
+                { id: 2, type: 'single room', image: 'property-02.jpg', name: 'PREMIER DULUXE VILLA', price: 4000, NumberOfRooms: 2, area: '15x17' },
+                { id: 3, type: 'single room', image: 'property-03.jpg', name: 'POOL VILLA', price: 5000, NumberOfRooms: 3, area: '15x20' },
+                { id: 4, type: 'double room', image: 'property-04.jpg', name: 'DELUXE VILLA', price: 6000, NumberOfRooms: 4, area: '20x20' },
+                { id: 5, type: 'double room', image: 'property-05.jpg', name: 'PREMIER DELUXE VILLA', price: 6500, NumberOfRooms: 5, area: '25x25' },
+                { id: 6, type: 'double room', image: 'property-06.jpg', name: 'POOL VILLA', price: 7500, NumberOfRooms: 6, area: '30x30' }
             ];
             const roomDetails = rooms.find(room => room.id === parseInt(roomId));
             setRoom(roomDetails);

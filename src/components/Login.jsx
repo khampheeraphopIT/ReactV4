@@ -41,8 +41,9 @@ function Login() {
         console.log(result)
         if (result.status === 'ok') {
           MySwal.fire({
-            html: <i>{result.message}</i>,
-            icon: 'success'
+            title: 'Login success',
+            icon: 'success',
+            confirmButtonText: 'Go'
           }).then((value) => {
             localStorage.setItem('token', result.accessToken)
             navigate('/profile')
