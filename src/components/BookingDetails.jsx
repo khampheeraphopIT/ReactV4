@@ -11,7 +11,7 @@ import withReactContent from 'sweetalert2-react-content';
 function BookingDetails() {
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('token') !== null);
   const [isLoaded, setIsLoaded] = useState(true);
@@ -46,7 +46,7 @@ function BookingDetails() {
       .then((response) => response.json())
       .then((result) => {
         if (result.status === 'ok') {
-          setUser(result.user);
+          setUser(result.user || {});
           setBooking(result.booking);
           setIsLoaded(false);
         } else if (result.status === 'forbidden') {
@@ -97,11 +97,11 @@ function BookingDetails() {
                     <img src={Logo} alt="" />
                   </a>
                   <ul className="nav">
-                    <li><Link to="/" className="active">Home</Link></li>
+                    <li><Link to="/Profile" className="active">Home</Link></li>
                     <li><Link to="/SearchRoom">Search Room</Link></li>
                     <li><Link to="/Contact">Contact Us</Link></li>
-                    <li><Link to="/RoomDetails"><i className="fa fa-calendar"></i><span>Book Now</span></Link></li>
-                    {isLoggedIn && user ? (
+                    <li><Link to="/SearchRoom"><i className="fa fa-calendar"></i><span>Book Now</span></Link></li>
+                    {isLoggedIn ? (
                       <li>
                         <Avatar
                           src={user?.image ? `data:image/jpeg;base64,${user.image}` : 'default-image-url'}
@@ -112,7 +112,7 @@ function BookingDetails() {
                     ) : (
                       <li>
                         <button onClick={handleSidebarToggle}>
-                          <Avatar src={'default-image-url'} />
+                          <Avatar src="default-image-url" />
                         </button>
                       </li>
                     )}
@@ -143,46 +143,47 @@ function BookingDetails() {
         </div>
 
         <div className='container-table'>
-        <table>
-          <thead>
-            <tr>
-              <th>Number</th>
-              <th>Number of Rooms</th>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Check-In </th>
-              <th>Check-Out </th>
-              <th>Status</th>
-            </tr> 
-          </thead>
+          <table>
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Number of Rooms</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Check-In </th>
+                <th>Check-Out </th>
+                <th>Status</th>
+              </tr>
+            </thead>
 
-          <tbody>
-            {Array.isArray(booking) && booking.length > 0 ? (
-              booking.map((booking, index) => (
-                <tr key={index}>
-                  <td><h5> {booking.bookingNumber}</h5></td>
-                  <td><h5> {booking.NumberOfRooms}</h5></td>
-                  <td><h5>{booking.roomName}</h5></td>
-                  <td> <h5>{booking.roomType}</h5></td>
-                  <td> <h5>{new Date(booking.checkIn).toLocaleDateString()}</h5></td>
-                  <td><h5> {new Date(booking.checkOut).toLocaleDateString()}</h5></td>
-                  <td> <h5>{booking.payment}</h5></td>
-                </tr>
-              ))
-            ) : (
-              <td colSpan="7">No bookings available</td>
-            )}
-          </tbody>
-        </table>
+            <tbody>
+              {Array.isArray(booking) && booking.length > 0 ? (
+                booking.map((booking, index) => (
+                  <tr key={index}>
+                    <td><h5> {booking.bookingNumber}</h5></td>
+                    <td><h5> {booking.NumberOfRooms}</h5></td>
+                    <td><h5>{booking.roomName}</h5></td>
+                    <td> <h5>{booking.roomType}</h5></td>
+                    <td> <h5>{new Date(booking.checkIn).toLocaleDateString()}</h5></td>
+                    <td><h5> {new Date(booking.checkOut).toLocaleDateString()}</h5></td>
+                    <td> <h5 style={{ color: booking.payment === 'success' ? 'green' : booking.payment === 'pending' ? 'red' : 'black' }}>
+                    {booking.payment}</h5></td>
+                  </tr>
+                ))
+              ) : (
+                <td colSpan="7">No bookings available</td>
+              )}
+            </tbody>
+          </table>
         </div>
 
         <footer>
-        <div className="container">
-          <div className="col-lg-8">
-            <p>© 2018 www.baraliresort.com. All rights reserved. </p>
+          <div className="container">
+            <div className="col-lg-8">
+              <p>© 2018 www.baraliresort.com. All rights reserved. </p>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
       </>
     );
   }

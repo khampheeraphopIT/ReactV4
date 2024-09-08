@@ -185,7 +185,7 @@ body {
 
 .main-button a {
   display: inline-block;
-  background-color: #1e1e1e;
+  background-color: #00fc43;
   color: #fff;
   font-size: 14px;
   font-weight: 500;
@@ -197,7 +197,7 @@ body {
 }
 
 .main-button a:hover {
-  background-color: #f35525;
+  background-color: #00fc43;
   color: #fff;
 }
 
@@ -263,7 +263,7 @@ Header Style
 
 .sub-header ul.info li {
   font-size: 14px;
-  color: #7a7a7a;
+  color: #bababf;
   border-right: 1px solid #eee;
   margin-right: 25px;
   padding-right: 25px;
@@ -277,7 +277,7 @@ Header Style
 
 .sub-header ul.info li i {
   font-size: 20px;
-  color: #f35525;
+  color: #0690c7;
   margin-right: 8px;
 }
 
@@ -378,7 +378,7 @@ Header Style
 }
 
 .header-area .main-nav .nav li:last-child a i {
-  background-color: #f35525;
+  background-color: #00fc43;
   display: inline-block;
   width: 40px;
   height: 40px;
@@ -389,6 +389,7 @@ Header Style
   margin-left: -1px;
 }
 
+
 .header-area .main-nav .nav li:last-child:hover a {
   background-color: #1e1e1e;
 }
@@ -398,7 +399,7 @@ Header Style
 }
 
 .header-area .main-nav .nav li:hover a {
-  color: #f35525;
+  color: #00fc43;
 }
 
 .header-area .main-nav .nav li a.active {
@@ -677,9 +678,10 @@ Banner Style
   font-size: 16px;
   font-weight: 500;
   text-transform: capitalize;
-  padding: 6px 15px;
+  position: absolute;
+  padding: 10px;
+  margin: 7rem;
   display: inline-block;
-  margin-bottom: 30px;
 }
 
 .main-banner .item span.category em {
@@ -938,7 +940,7 @@ Best Deal Style
 }
 
 .best-deal .tabs-content .nav-tabs .nav-link.active {
-  background-color: #f35525 !important;
+  background-color: #079bfd !important;
   color: #fff;
 }
 
@@ -1019,7 +1021,6 @@ Properties Style
   border-radius: 10px;
 }
 
-
 .propertie .item {
   background-color: #fafafa;
   border-radius: 10px;
@@ -1076,14 +1077,14 @@ Properties Style
 }
 
 .propertie .item .image-details .details i {
-  color: #ff8c00;
+  color: #00fc43;
   margin: 1rem;
   padding: 1rem;
   width: 50px;
 }
 
 .properties .item span.category {
-  background-color: #fbd9cf;
+  background-color: #079bfd;
   font-weight: 500;
   border-radius: 5px;
   font-size: 14px;
@@ -1122,7 +1123,7 @@ Properties Style
 
 .properties .item h6 {
   font-size: 20px;
-  color: #f35525;
+  color: #00fc43;
   margin-top: 6px;
   display: inline-block;
   float: right;
@@ -1169,6 +1170,10 @@ Contact Style
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
   padding: 35px 30px;
   background-color: #fff;
+}
+
+.contact-content .item img {
+  color: #00fc43;
 }
 
 .contact-content .phone {
@@ -1238,7 +1243,7 @@ Contact Style
 }
 
 .contact-content #contact-form button {
-  background-color: #1e1e1e;
+  background-color: #00fc43;
   height: 44px;
   border-radius: 22px;
   padding: 0px 20px;
@@ -1250,7 +1255,7 @@ Contact Style
 }
 
 .contact-content #contact-form button:hover {
-  background-color: #f35525;
+  background-color: #00fc43;
 }
 
 
@@ -1479,7 +1484,7 @@ footer p a:hover {
 
 .container-table {
   max-width: 100%;
-  height: 350px;
+  height: auto;
   margin: 5rem;
   display: flex;
   justify-content: center;
@@ -1578,7 +1583,7 @@ Properties Style
 }
 
 .properties ul.properties-filter li a.is_active {
-  background-color: #f35525;
+  background-color: #079bfd;
   color: #fff;
 }
 

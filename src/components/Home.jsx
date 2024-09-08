@@ -16,7 +16,7 @@ import emailIcon from '../assets/images/email-icon.png'
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../assets/images/logo.jpg'
 import Sidebar from '../components/sidebar'
-import { Avatar } from '@mui/material';
+import { Avatar, colors } from '@mui/material';
 import '../assets/css/Sidebar.css'
 
 const Home = () => {
@@ -82,7 +82,7 @@ const Home = () => {
                   <li><Link to="/" className="active">Home</Link></li>
                   <li><Link to="/SearchRoom">Search Room</Link></li>
                   <li><Link to="/Contact">Contact Us</Link></li>
-                  <li><Link to="/RoomDetails"><i className="fa fa-calendar"></i><span>Book Now</span></Link></li>
+                  <li><Link to="/SearchRoom"><i className="fa fa-calendar" ></i><span>Book Now</span></Link></li>
                   {isLoggedIn ? (
                     <li><Avatar alt="Profile" onClick={handleSidebarToggle} /></li>
                   ) : (
@@ -434,7 +434,7 @@ const Home = () => {
                   </div>
                   <div className="col-lg-12">
                     <fieldset>
-                      <button type="submit" id="form-submit" className="orange-button">
+                      <button type="submit" id="form-submit">
                         Send Message
                       </button>
                     </fieldset>

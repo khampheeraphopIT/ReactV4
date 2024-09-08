@@ -33,20 +33,20 @@ function Register() {
                 },
                 body: JSON.stringify({ email: email })
             });
-    
+
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-    
+
             const data = await response.json();
-            return data.exists;  
+            return data.exists;
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
             return false;
         }
     }
 
-    const validate =  () => {
+    const validate = () => {
         let errors = {};
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const specialCharsPattern = /[^a-zA-Z]/g;
@@ -77,7 +77,7 @@ function Register() {
             errors.email = "Email is required.";
         } else if (!emailPattern.test(inputs.email)) {
             errors.email = "Invalid email format.";
-        } 
+        }
         // else {
         //     const emailExists = checkEmailExists(inputs.email); 
         //     if (emailExists) {
@@ -89,14 +89,14 @@ function Register() {
         //Password
         if (!inputs.password) {
             errors.password = "Password is required.";
-        } else if(!/[A-Z]/.test(inputs.password)){
-            errors.password = "Password must contain at least one uppercase letter." ;
-        } else if(!/[a-z]/.test(inputs.password)){
-            errors.password = "Password must contain at least one lowercase letter." ;
-        } else if(!/\d/.test(inputs.password)){
-            errors.password = "Password must contain at least one number." ;
-        } else if(inputs.password.length < 8){
-            errors.password = "Password must be at least 8 characters long." ;
+        } else if (!/[A-Z]/.test(inputs.password)) {
+            errors.password = "Password must contain at least one uppercase letter.";
+        } else if (!/[a-z]/.test(inputs.password)) {
+            errors.password = "Password must contain at least one lowercase letter.";
+        } else if (!/\d/.test(inputs.password)) {
+            errors.password = "Password must contain at least one number.";
+        } else if (inputs.password.length < 8) {
+            errors.password = "Password must be at least 8 characters long.";
         } else if (!specialCharsPatternForPassword.test(inputs.password)) {
             errors.password = "Password must contain at least one special character.";
         }
@@ -115,11 +115,11 @@ function Register() {
             return;
         }
 
-        const emailExists = await checkEmailExists(inputs.email); 
-    if (emailExists) {
-        setErrors(prevErrors => ({ ...prevErrors, email: "This email is already registered." }));
-        return;
-    }
+        const emailExists = await checkEmailExists(inputs.email);
+        if (emailExists) {
+            setErrors(prevErrors => ({ ...prevErrors, email: "This email is already registered." }));
+            return;
+        }
 
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -138,13 +138,17 @@ function Register() {
             redirect: "follow"
         };
 
-        fetch("http://localhost:3333/register", requestOptions) 
+        fetch("http://localhost:3333/register", requestOptions)
             .then((response) => response.json())
             .then((result) => {
                 if (result.status === 'ok') {
                     MySwal.fire({
-                        html: <i>{result.message}</i>,
-                        icon: 'success'
+                        imageUrl: Logo,
+                        imageWidth: 100,
+                        imageHeight: 100,
+                        title: 'Register Success',
+                        icon: 'success',
+                        confirmButtonText: 'Login'
                     }).then(() => {
                         navigate('/login');
                     });

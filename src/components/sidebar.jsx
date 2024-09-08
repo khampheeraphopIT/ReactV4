@@ -7,7 +7,10 @@ const Sidebar = ({ isOpen, onClose, isLoggedIn, handleLogout }) => {
     <div className={`sidebar ${isOpen ? 'open' : ''}`}>
       <button className="close-btn" onClick={onClose}>X</button>
       {isLoggedIn ? (
+        <>
         <button className='btn' onClick={handleLogout}>Logout</button>
+        <button className='btn'><Link to="/BookingDetails">Booking Details</Link> </button>
+        </>
       ) : (
         <Link to="/Login">Login</Link>
       )}

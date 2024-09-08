@@ -10,7 +10,7 @@ function Login() {
   const MySwal = withReactContent(Swal)
 
   const [inputs, setInputs] = useState({});
-
+  
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -41,9 +41,12 @@ function Login() {
         console.log(result)
         if (result.status === 'ok') {
           MySwal.fire({
+            imageUrl: Logo,
+            imageWidth: 100,
+            imageHeight: 100,
             title: 'Login success',
             icon: 'success',
-            confirmButtonText: 'Go'
+            confirmButtonText: 'Home'
           }).then((value) => {
             localStorage.setItem('token', result.accessToken)
             navigate('/profile')

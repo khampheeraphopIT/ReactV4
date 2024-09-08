@@ -130,7 +130,7 @@ const Profile = () => {
                   <li><Link to="/" className="active">Home</Link></li>
                   <li><Link to="/SearchRoom">Search Room</Link></li>
                   <li><Link to="/Contact">Contact Us</Link></li>
-                  <li><Link to="/RoomDetails"><i className="fa fa-calendar"></i><span>Book Now</span></Link></li>
+                  <li><Link to="/SearchRoom"><i className="fa fa-calendar"></i><span>Book Now</span></Link></li>
                   {isLoggedIn ? (
                     <li>
                       <Avatar

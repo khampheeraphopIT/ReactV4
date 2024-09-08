@@ -8,6 +8,7 @@ import Logo from '../assets/images/logo.jpg'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
+
 function Booking() {
   const MySwal = withReactContent(Swal)
   const navigate = useNavigate();
@@ -24,13 +25,18 @@ function Booking() {
     setInputs(values => ({ ...values, [name]: value }));
   };
 
-  function generateRandomString(length) {
+  function generateRandomBookingNumber(length) {
     const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let result = '';
-    for (let i = 0; i < length; i++) {
+    const fixedPrefix = 'BBR';
+    let result = fixedPrefix;
+
+    const remainingLength = length - fixedPrefix.length;
+
+    for (let i = 0; i < remainingLength; i++) {
       const randomIndex = Math.floor(Math.random() * charset.length);
       result += charset[randomIndex];
     }
+
     return result;
   }
 
@@ -48,14 +54,13 @@ function Booking() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const bookingNumber = generateRandomString(8);
+    const bookingNumber = generateRandomBookingNumber(8);
 
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
     const token = localStorage.getItem('token');
-    if (token) {
-      myHeaders.append('Authorization', `Bearer ${token}`);
-    }
+    myHeaders.append('Authorization', `Bearer ${token}`);
+
 
     const raw = JSON.stringify({
       bookingNumber,
@@ -82,8 +87,12 @@ function Booking() {
             icon: 'success',
             confirmButtonText: 'Booking details'
           }).then(() => {
-            localStorage.setItem('token', result.accessToken);
-            navigate('/profile');
+            if (result.accessToken) {
+              localStorage.setItem('token', result.accessToken);
+              navigate('/BookingDetails');
+            } else {
+              navigate('/BookingDetails');
+            }
           });
         } else {
           MySwal.fire({
@@ -128,7 +137,7 @@ function Booking() {
                   <li><Link to="/Profile" className="active">Home</Link></li>
                   <li><Link to="/SearchRoom">Search Room</Link></li>
                   <li><Link to="/Contact">Contact Us</Link></li>
-                  <li><Link to="/RoomDetails"><i className="fa fa-calendar"></i><span>Book Now</span></Link></li>
+                  <li><Link to="/SearchRoom"><i className="fa fa-calendar"></i><span>Book Now</span></Link></li>
                   {isLoggedIn && user ? (
                     <li>
                       <Avatar
@@ -184,7 +193,7 @@ function Booking() {
             <div className='booking-content'>
               <div className='booking-form'>
                 <div className=''></div>
-                <form >
+                <form  >
                   <label>RoomId
                     <input
                       type="number"
