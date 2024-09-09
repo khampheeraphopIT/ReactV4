@@ -113,9 +113,6 @@ const Contact = () => {
                     </li>
                   )}
                 </ul>
-                <div className='menu-trigger'>
-                  <span>Menu</span>
-                </div>
               </nav>
             </div>
           </div>

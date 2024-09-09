@@ -40,6 +40,39 @@ function Booking() {
     return result;
   }
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + token);
+
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow"
+    };
+
+    fetch("http://localhost:3333/profile", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.status === 'ok') {
+          setUser(result.user);
+          setIsLoaded(true);  // ตั้งค่าให้ข้อมูลโหลดเสร็จแล้ว
+        } else if (result.status === 'forbidden') {
+          MySwal.fire({
+            html: <i>{result.message}</i>,
+            icon: 'error'
+          }).then(() => {
+            navigate('/login');  // กลับไปหน้าล็อกอินถ้า token หมดอายุ
+          });
+        }
+      })
+      .catch((error) => console.error(error));
+  }, [MySwal, navigate]);
 
   const handleSidebarToggle = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -142,21 +175,17 @@ function Booking() {
                     <li>
                       <Avatar
                         src={user?.image ? `data:image/jpeg;base64,${user.image}` : 'default-image-url'}
-                        alt={user?.id || "User Avatar"}
+                        alt={user?.id }
                         onClick={handleSidebarToggle}
                       />
                     </li>
                   ) : (
                     <li>
                       <button onClick={handleSidebarToggle}>
-                        <Avatar src={'default-image-url'} />
                       </button>
                     </li>
                   )}
                 </ul>
-                <div className='menu-trigger'>
-                  <span>Menu</span>
-                </div>
               </nav>
             </div>
           </div>

@@ -28,43 +28,64 @@ function BookingDetails() {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login');
-      return;
-    }
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + token);
-
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow"
-    };
-
-    fetch(`http://localhost:3333/bookingDetail`, requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.status === 'ok') {
-          setUser(result.user || {});
-          setBooking(result.booking);
-          setIsLoaded(false);
-        } else if (result.status === 'forbidden') {
-          MySwal.fire({
-            html: <i>{result.message}</i>,
+    const fetchData = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        navigate('/login');
+        return;
+      }
+  
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", "Bearer " + token);
+  
+      const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+      };
+  
+      try {
+        // Fetch profile data
+        const profileResponse = await fetch("http://localhost:3333/profile", requestOptions);
+        const profileResult = await profileResponse.json();
+        if (profileResult.status === 'ok') {
+          setUser(profileResult.user);
+        } else if (profileResult.status === 'forbidden') {
+          await MySwal.fire({
+            html: <i>{profileResult.message}</i>,
             icon: 'error'
-          }).then(() => {
-            navigate('/');
           });
+          navigate('/');
+          return; // Exit early if forbidden
         }
-        console.log(result);
-      })
-      .catch((error) => console.error(error));
+  
+        // Fetch booking details
+        const bookingResponse = await fetch("http://localhost:3333/bookingDetail", requestOptions);
+        const bookingResult = await bookingResponse.json();
+        if (bookingResult.status === 'ok') {
+          setBooking(bookingResult.booking);
+        } else if (bookingResult.status === 'forbidden') {
+          await MySwal.fire({
+            html: <i>{bookingResult.message}</i>,
+            icon: 'error'
+          });
+          navigate('/');
+          return; // Exit early if forbidden
+        }
+  
+        setIsLoaded(true); // Set loaded state to true when both requests are done
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        // Handle error as needed
+      }
+    };
+  
+    fetchData();
   }, [MySwal, navigate]);
 
 
 
-  if (isLoaded) {
+  if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
     return (
@@ -112,14 +133,10 @@ function BookingDetails() {
                     ) : (
                       <li>
                         <button onClick={handleSidebarToggle}>
-                          <Avatar src="default-image-url" />
                         </button>
                       </li>
                     )}
                   </ul>
-                  <div className='menu-trigger'>
-                    <span>Menu</span>
-                  </div>
                 </nav>
               </div>
             </div>

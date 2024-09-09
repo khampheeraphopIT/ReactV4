@@ -98,9 +98,6 @@ function Login() {
                   <li><Link to="/Contact">Contact Us</Link></li>
                   <li><Link to="/RoomDetails"><i className="fa fa-calendar"></i><span>Book Now</span></Link></li>
                 </ul>
-                <Link className='menu-trigger'>
-                  <span>Menu</span>
-                </Link>
               </nav>
             </div>
           </div>

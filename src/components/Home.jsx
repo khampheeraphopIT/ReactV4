@@ -89,9 +89,6 @@ const Home = () => {
                     <li><Avatar alt='Profile' onClick={handleSidebarToggle}></Avatar></li>
                   )}
                 </ul>
-                <div className='menu-trigger'>
-                  <span>Menu</span>
-                </div>
               </nav>
             </div>
           </div>
