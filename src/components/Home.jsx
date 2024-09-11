@@ -80,9 +80,9 @@ const Home = () => {
                 </Link>
                 <ul className="nav">
                   <li><Link to="/" className="active">Home</Link></li>
-                  <li><Link to="/SearchRoom">Search Room</Link></li>
+                  <li><Link to="/SearchRoom1">Search Room</Link></li>
                   <li><Link to="/Contact">Contact Us</Link></li>
-                  <li><Link to="/SearchRoom"><i className="fa fa-calendar" ></i><span>Book Now</span></Link></li>
+                  <li><Link to="/login"><i className="fa fa-calendar" ></i><span>Book Now</span></Link></li>
                   {isLoggedIn ? (
                     <li><Avatar alt="Profile" onClick={handleSidebarToggle} /></li>
                   ) : (
@@ -167,7 +167,7 @@ const Home = () => {
                             <p>Perfect for solo travelers, our Single Room offers a cozy space with one bed, ideal for rest and relaxation.
                               <br /><br />The room is equipped with essential amenities such as a work desk, flat-screen TV, and complimentary Wi-Fi, ensuring a smooth and comfortable stay.</p>
                             <div className="main-button">
-                              <Link to="/RoomDetails/1"><i className="fa fa-calendar"></i> Room Details </Link>
+                              <Link to="/RoomDetails1/1"><i className="fa fa-calendar"></i> Room Details </Link>
                             </div>
                           </div>
                         </div>
@@ -194,7 +194,7 @@ const Home = () => {
                             <p>Ideal for couples or friends traveling together, our Double Room features a spacious layout with either one large bed or two single beds, allowing you to choose the most convenient option.
                               <br /><br />The room also comes with amenities like air conditioning, a private bathroom, and minibar.</p>
                             <div className="main-button">
-                              <Link to="/RoomDetails/4"><i className="fa fa-calendar"></i> Room Details </Link>
+                              <Link to="/RoomDetails1/4"><i className="fa fa-calendar"></i> Room Details </Link>
                             </div>
                           </div>
                         </div>
@@ -221,7 +221,7 @@ const Home = () => {
           <div className="row">
             <div className="col-lg-4 col-md-6">
               <div className="item">
-                <Link to={`/RoomDetails/1`}>
+                <Link to={`/RoomDetails1/1`}>
                   <img src={properties_01} alt="DELUXE VILLA" />
                 </Link>
                 <span className="category">Single Room</span>
@@ -233,7 +233,7 @@ const Home = () => {
                   <li>Stay 2 Nights Extra Save <span>5%</span></li>
                 </ul>
                 <div className="main-button">
-                  <Link to={`/RoomDetails/1`}><i className="fa fa-calendar"></i> Room Details </Link>
+                  <Link to={`/RoomDetails1/1`}><i className="fa fa-calendar"></i> Room Details </Link>
                 </div>
               </div>
             </div>
@@ -251,13 +251,13 @@ const Home = () => {
                   <li>Stay 2 Nights Extra Save <span>5%</span></li>
                 </ul>
                 <div className="main-button">
-                  <Link to={`/RoomDetails/2`}><i className="fa fa-calendar"></i> Room Details </Link>
+                  <Link to={`/RoomDetails1/2`}><i className="fa fa-calendar"></i> Room Details </Link>
                 </div>
               </div>
             </div>
             <div className="col-lg-4 col-md-6">
               <div className="item">
-                <Link to={`/RoomDetails/3`}>
+                <Link to={`/RoomDetails1/3`}>
                   <img src={properties_03} alt="DELUXE VILLA" />
                 </Link>
                 <span className="category">Single Room</span>
@@ -269,13 +269,13 @@ const Home = () => {
                   <li>Stay 2 Nights Extra Save <span>5%</span></li>
                 </ul>
                 <div className="main-button">
-                  <Link to={`/RoomDetails/3`}><i className="fa fa-calendar"></i> Room Details </Link>
+                  <Link to={`/RoomDetails1/3`}><i className="fa fa-calendar"></i> Room Details </Link>
                 </div>
               </div>
             </div>
             <div className="col-lg-4 col-md-6">
               <div className="item">
-                <Link to={`/RoomDetails/4`}>
+                <Link to={`/RoomDetails1/4`}>
                   <img src={properties_04} alt="DELUXE VILLA" />
                 </Link>
                 <span className="category">Double Room</span>
@@ -287,13 +287,13 @@ const Home = () => {
                   <li>Stay 2 Nights Extra Save <span>5%</span></li>
                 </ul>
                 <div className="main-button">
-                  <Link to={`/RoomDetails/4`}><i className="fa fa-calendar"></i> Room Details </Link>
+                  <Link to={`/RoomDetails1/4`}><i className="fa fa-calendar"></i> Room Details </Link>
                 </div>
               </div>
             </div>
             <div className="col-lg-4 col-md-6">
               <div className="item">
-                <Link to={`/RoomDetails/5`}>
+                <Link to={`/RoomDetails1/5`}>
                   <img src={properties_05} alt="DELUXE VILLA" />
                 </Link>
                 <span className="category">Double Room</span>
@@ -305,13 +305,13 @@ const Home = () => {
                   <li>Stay 2 Nights Extra Save <span>10%</span></li>
                 </ul>
                 <div className="main-button">
-                  <Link to={`/RoomDetails/5`}><i className="fa fa-calendar"></i> Room Details </Link>
+                  <Link to={`/RoomDetails1/5`}><i className="fa fa-calendar"></i> Room Details </Link>
                 </div>
               </div>
             </div>
             <div className="col-lg-4 col-md-6">
               <div className="item">
-                <Link to={`/RoomDetails/6`}>
+                <Link to={`/RoomDetails1/6`}>
                   <img src={properties_06} alt="DELUXE VILLA" />
                 </Link>
                 <span className="category">Double Room</span>
@@ -323,7 +323,7 @@ const Home = () => {
                   <li>Stay 2 Nights Extra Save <span>12%</span></li>
                 </ul>
                 <div className="main-button">
-                  <Link to={`/RoomDetails/6`}><i className="fa fa-calendar"></i> Room Details </Link>
+                  <Link to={`/RoomDetails1/6`}><i className="fa fa-calendar"></i> Room Details </Link>
                 </div>
               </div>
             </div>
@@ -337,7 +337,7 @@ const Home = () => {
             <div className="col-lg-4 offset-lg-4">
               <div className="section-heading text-center">
                 <h6>| Contact Us</h6>
-                <h2>Contact With Me</h2>
+                <h2>Contact</h2>
               </div>
             </div>
           </div>

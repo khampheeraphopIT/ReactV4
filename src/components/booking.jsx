@@ -97,7 +97,7 @@ function Booking() {
 
     const raw = JSON.stringify({
       bookingNumber,
-      roomId: room.NumberOfRooms,
+      roomId: room.id,
       checkIn: inputs.checkIn,
       checkOut: inputs.checkOut,
     });

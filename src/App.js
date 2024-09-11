@@ -9,6 +9,8 @@ import BookingDetail from './components/BookingDetails';
 import Register from "./components/Register";
 import Profile from "./components/Profile";
 import Boooking from "./components/booking"
+import SearchRoom1 from "./components/SearchRoom1";
+import RoomDetails1 from "./components/RoomDetails1";
 function App() {
     return (
         <BrowserRouter>
@@ -22,6 +24,8 @@ function App() {
                 <Route path="/profile" element={<Profile />}></Route>
                 <Route path="/bookingDetails" element={<BookingDetail />}></Route>
                 <Route path="/booking" element={<Boooking />}></Route>
+                <Route path="/searchRoom1" element={<SearchRoom1 />}></Route>
+                <Route path="/roomDetails1/:roomId" element={<RoomDetails1 />}></Route>
             </Routes>
         </BrowserRouter>
     )

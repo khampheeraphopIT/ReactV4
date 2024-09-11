@@ -30,41 +30,6 @@ const Contact = () => {
     navigate('/login');
   }
 
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (!token) {
-      navigate('/login');
-      return;
-    }
-
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + token);
-
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow"
-    };
-
-    fetch("http://localhost:3333/profile", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.status === 'ok') {
-          setUser(result.user)
-          setIsLoaded(false)
-        } else if (result.status === 'forbidden') {
-          MySwal.fire({
-            html: <i>{result.message}</i>,
-            icon: 'error'
-          }).then((value) => {
-            navigate('/')
-          })
-        }
-        console.log(result)
-      })
-      .catch((error) => console.error(error));
-  }, [MySwal, navigate])
-
   return (
     <>
       <div className="sub-header">
@@ -100,17 +65,9 @@ const Contact = () => {
                   <li><Link to="/Contact">Contact Us</Link></li>
                   <li><Link to="/SearchRoom"><i className="fa fa-calendar"></i><span>Book Now</span></Link></li>
                   {isLoggedIn ? (
-                    <li>
-                      <Avatar
-                        src={user.image ? `data:image/jpeg;base64,${user.image}` : 'default-image-url'}
-                        alt={user.id}
-                        onClick={handleSidebarToggle}
-                      />
-                    </li>
+                    <li><Avatar alt="Profile" onClick={handleSidebarToggle} /></li>
                   ) : (
-                    <li>
-                      <button onClick={handleSidebarToggle}>Login</button>
-                    </li>
+                    <li><Avatar alt='Profile' onClick={handleSidebarToggle}></Avatar></li>
                   )}
                 </ul>
               </nav>
@@ -141,7 +98,7 @@ const Contact = () => {
             <div className="col-lg-4 offset-lg-4">
               <div className="section-heading text-center">
                 <h6>| Contact Us</h6>
-                <h2>Contact With Me</h2>
+                <h2>Contact</h2>
               </div>
             </div>
           </div>

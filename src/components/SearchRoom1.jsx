@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../assets/css/fontawesome.css';
 import '../assets/css/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -12,19 +12,14 @@ import properties_06 from '../assets/images/property-06.jpg'
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../assets/images/logo.jpg'
 import { Avatar } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 import '../assets/css/Sidebar.css'
 import Sidebar from '../components/sidebar'
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+
 
 const SearchRoom = () => {
   const [filter, setFilter] = useState('*');
   const [searchTerm, setSearchTerm] = useState('');
-  const MySwal = withReactContent(Swal);
   const navigate = useNavigate();
-  const [user, setUser] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('token') !== null);
 
@@ -59,41 +54,6 @@ const SearchRoom = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login');
-      return;
-    }
-
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + token);
-
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow"
-    };
-
-    fetch("http://localhost:3333/profile", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.status === 'ok') {
-          setUser(result.user);
-          setIsLoaded(false);
-        } else if (result.status === 'forbidden') {
-          MySwal.fire({
-            html: <i>{result.message}</i>,
-            icon: 'error'
-          }).then((value) => {
-            navigate('/');
-          });
-        }
-        console.log(result);
-      })
-      .catch((error) => console.error(error));
-  }, [MySwal, navigate]);
-
   return (
     <div>
       <header className="header-area header-sticky">
@@ -106,22 +66,14 @@ const SearchRoom = () => {
                 </Link>
 
                 <ul className="nav">
-                  <li><Link to="/Profile" className="active">Home</Link></li>
-                  <li><Link to="/SearchRoom">Search Room</Link></li>
+                  <li><Link to="/" className="active">Home</Link></li>
+                  <li><Link to="/SearchRoom1">Search Room</Link></li>
                   <li><Link to="/Contact">Contact Us</Link></li>
                   <li><Link to="/SearchRoom"><i className="fa fa-calendar"></i><span>Book Now</span></Link></li>
                   {isLoggedIn ? (
-                    <li>
-                      <Avatar
-                        src={user.image ? `data:image/jpeg;base64,${user.image}` : 'default-image-url'}
-                        alt={user.id}
-                        onClick={handleSidebarToggle}
-                      />
-                    </li>
+                    <li><Avatar alt="Profile" onClick={handleSidebarToggle} /></li>
                   ) : (
-                    <li>
-                      <button onClick={handleSidebarToggle}>Login</button>
-                    </li>
+                    <li><Avatar alt='Profile' onClick={handleSidebarToggle}></Avatar></li>
                   )}
                 </ul>
               </nav>
@@ -152,7 +104,7 @@ const SearchRoom = () => {
           {/* Input ค้นหา */}
           <input
             type="text"
-            placeholder='Search'
+            placeholder="Search by room type..."
             onChange={handleSearch}
             className="Search"
           />
@@ -172,12 +124,12 @@ const SearchRoom = () => {
               .map(room => (
                 <div key={room.id} className={`col-lg-4 col-md-6 align-self-center mb-30 properties-items ${room.type}`}>
                   <div className="item">
-                    <Link to={`/RoomDetails/${room.id}`} onClick={() => handleRoomDetails(room.id)}>
+                    <Link to={`/RoomDetails1/${room.id}`} onClick={() => handleRoomDetails(room.id)}>
                       <img src={room.image} alt={room.name} />
                     </Link>
                     <span className="category">{room.type === 'single room' ? 'Single Room' : 'Double Room'}</span>
                     <h6>THB {room.price}</h6>
-                    <h4><Link to={`/RoomDetails/${room.id}`} onClick={() => handleRoomDetails(room.id)}>
+                    <h4><Link to={`/RoomDetails1/${room.id}`} onClick={() => handleRoomDetails(room.id)}>
                       {room.name}
                     </Link></h4>
                     <ul>
@@ -186,7 +138,7 @@ const SearchRoom = () => {
                       <li>Stay 2 Nights Extra Save 5%</li>
                     </ul>
                     <div className="main-button">
-                      <Link to={`/RoomDetails/${room.id}`} onClick={() => handleRoomDetails(room.id)}>Room Details</Link>
+                      <Link to={`/RoomDetails1/${room.id}`} onClick={() => handleRoomDetails(room.id)}>Room Details</Link>
                     </div>
                   </div>
                 </div>

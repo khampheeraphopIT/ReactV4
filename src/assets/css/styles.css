@@ -257,6 +257,12 @@ Header Style
   transition: all .3s;
 }
 
+.Search {
+  padding: 0.5rem;
+  margin-top: 3rem;
+  float: right;
+}
+
 .sub-header ul.social-links li a:hover {
   background-color: #0c92ff;
 }
@@ -1460,7 +1466,8 @@ Properties Style
 
 .properties ul.properties-filter li {
   display: inline-block;
-  margin: 5px 8px;
+  margin: 1rem;
+  margin-left: 5rem;
 }
 
 .properties ul.properties-filter li a {

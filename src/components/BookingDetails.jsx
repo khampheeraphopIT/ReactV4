@@ -27,6 +27,14 @@ function BookingDetails() {
     navigate('/login');
   }
 
+  /*function calculateDaysBetween(checkIn, checkOut) {
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
+    const timeDifference = checkOutDate - checkInDate; // ความแตกต่างในมิลลิวินาที
+    const daysDifference = timeDifference / (1000 * 3600 * 24); // แปลงเป็นจำนวนวัน
+    return daysDifference;
+  }*/
+
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem('token');
@@ -183,6 +191,7 @@ function BookingDetails() {
                     <td> <h5>{booking.roomType}</h5></td>
                     <td> <h5>{new Date(booking.checkIn).toLocaleDateString()}</h5></td>
                     <td><h5> {new Date(booking.checkOut).toLocaleDateString()}</h5></td>
+                    {/*<td> <h5>{calculateDaysBetween(booking.checkIn, booking.checkOut)} days</h5></td> {/* แสดงผลระยะเวลาการจอง */}
                     <td> <h5 style={{ color: booking.payment === 'success' ? 'green' : booking.payment === 'pending' ? 'red' : 'black' }}>
                     {booking.payment}</h5></td>
                   </tr>
