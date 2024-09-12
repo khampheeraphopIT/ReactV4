@@ -17,12 +17,24 @@ function Booking() {
   const [inputs, setInputs] = useState({});
   const [user, setUser] = useState()
   const [isLoaded, setIsLoaded] = useState();
+  const [discountedPrice, setDiscountedPrice] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(0);
   const location = useLocation();
   const { room } = location.state || {};
+  const today = new Date().toISOString().split('T')[0];
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setInputs(values => ({ ...values, [name]: value }));
+    setInputs(prevInputs => {
+      const updatedInputs = { ...prevInputs, [name]: value };
+
+      // ตรวจสอบวันที่ CheckOut
+      if (name === 'checkIn' && updatedInputs.checkOut && value > updatedInputs.checkOut) {
+        setInputs(prevInputs => ({ ...prevInputs, checkOut: "" }));
+      }
+
+      return updatedInputs;
+    });
   };
 
   function generateRandomBookingNumber(length) {
@@ -83,6 +95,32 @@ function Booking() {
     setIsLoggedIn(false);
     navigate('/login');
   }
+
+  useEffect(() => {
+    if (inputs.checkIn && inputs.checkOut && room) {
+      const checkInDate = new Date(inputs.checkIn);
+      const checkOutDate = new Date(inputs.checkOut);
+      const days = Math.max((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24), 0);
+
+      if (days > 0) {
+        const price = room.price * days;
+        setTotalPrice(price);
+        console.log(price)
+
+        if (days >= 2) {
+          const price = room.price * days;
+          const discountRate = room.type === 'single room' ? 0.05 : room.type === 'double room' ? 0.10 : 0;
+          const discounted = price * (1 - discountRate);
+          setDiscountedPrice("discounted", discounted);
+        } else {
+          setDiscountedPrice(null);
+        }
+      } else {
+        setTotalPrice(room.price);
+        setDiscountedPrice(null);
+      }
+    }
+  }, [inputs, room]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -175,7 +213,7 @@ function Booking() {
                     <li>
                       <Avatar
                         src={user?.image ? `data:image/jpeg;base64,${user.image}` : 'default-image-url'}
-                        alt={user?.id }
+                        alt={user?.id}
                         onClick={handleSidebarToggle}
                       />
                     </li>
@@ -223,20 +261,13 @@ function Booking() {
               <div className='booking-form'>
                 <div className=''></div>
                 <form  >
-                  <label>RoomId
-                    <input
-                      type="number"
-                      name="roomId"  // ตรวจสอบให้ตรงกับชื่อใน handleChange
-                      value={room.NumberOfRooms || ""}
-                      onChange={handleChange}
-                    />
-                  </label>
                   <label>CheckIn
                     <input
                       type="date"
                       name="checkIn"
                       value={inputs.checkIn || ""}
                       onChange={handleChange}
+                      min={today}
                     />
                   </label>
                   <label>CheckOut
@@ -245,6 +276,7 @@ function Booking() {
                       name="checkOut"
                       value={inputs.checkOut || ""}
                       onChange={handleChange}
+                      min={inputs.checkIn ? new Date(inputs.checkIn).toISOString().split('T')[0] : today}
                     />
                   </label>
                 </form>
@@ -256,10 +288,13 @@ function Booking() {
           <div className='reservation-summary'>
             <h4><strong>Reservation Summary</strong></h4>
             <p>Room Name: <strong>{room.name}</strong></p>
-            <p>Price: <strong>THB {room.price}</strong></p>
-            <p>Number of Rooms: <strong>{room.NumberOfRooms}</strong></p>
-            <p>Area: <strong>{room.area}</strong></p>
+            <p>Price per Night: <strong>THB {room.price}</strong></p>
+            <p>Days: <strong>{Math.max((new Date(inputs.checkOut) - new Date(inputs.checkIn)) / (1000 * 60 * 60 * 24), 1)} days</strong></p>
             <p><strong>Stay 2 Nights Extra Save 5%</strong></p>
+            <p><strong>Total Price:</strong> {typeof totalPrice === 'number' ? totalPrice.toFixed(2) : '0.00'} THB</p>
+            {discountedPrice !== null && (
+              <p><strong>Discounted Price:</strong> {typeof discountedPrice === 'number' ? discountedPrice.toFixed(2) : '0.00'} THB</p>
+            )}
             <button type='submit' className='confirm-booking-btn' onClick={handleSubmit}>Confirm Booking</button>
           </div>
         )}

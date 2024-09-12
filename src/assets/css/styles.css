@@ -201,35 +201,36 @@ body {
   color: #fff;
 }
 
+.main-button {
+  display: inline-block;
+  background-color: #00fc43;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 40px;
+  padding: 0px 30px;
+  border-radius: 25px;
+  transition: all .3s;
+}
+
+.main-button:hover {
+  background-color: #00fc43;
+  color: #fff;
+}
+
 /* 
 ---------------------------------------------
 Header Style
 --------------------------------------------- 
 */
 /* App.css */
-.swiper-container {
-  width: 100%;
-  height: 100%;
-}
-
-.swiper-slide {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  background: #eee;
-}
-
-.swiper-button-next,
-.swiper-button-prev {
-  color: #000;
-}
-
 
 .sub-header {
-  background-color: #fff;
+  background-color: #141414;
   padding: 10px 0px;
   border-bottom: 1px solid #eee;
+  height: 80px;
 }
 
 .sub-header ul li {
@@ -248,7 +249,8 @@ Header Style
   display: inline-block;
   width: 30px;
   height: 30px;
-  background-color: #cdcdcd;
+  margin: 0.5rem;
+  background-color: #0071f8;
   border-radius: 50%;
   text-align: center;
   line-height: 30px;
@@ -283,7 +285,7 @@ Header Style
 
 .sub-header ul.info li i {
   font-size: 20px;
-  color: #0690c7;
+  color: #0071f8;
   margin-right: 8px;
 }
 
@@ -324,10 +326,8 @@ Header Style
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
   display: inline-block;
-}
-
-.header-area .main-nav .logo {
   width: 80px;
+  margin-left: 20px;
   margin: 1rem;
 }
 
@@ -397,15 +397,7 @@ Header Style
 
 
 .header-area .main-nav .nav li:last-child:hover a {
-  background-color: #1e1e1e;
-}
-
-.header-area .main-nav .nav li:last-child:hover a i {
-  color: #fff;
-}
-
-.header-area .main-nav .nav li:hover a {
-  color: #00fc43;
+  background-color: #ffffff;
 }
 
 .header-area .main-nav .nav li a.active {
@@ -820,11 +812,20 @@ Best Deal Style
 
 .best-deal {
   background-color: #fafafa;
-  padding: 100px 0px;
 }
 
-.best-deal .tab-content img {
-  padding: 0px 45px;
+.best-deal .section-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center; /* จัดกลางข้อความ */
+  padding: 20px;
+}
+
+.best-deal .col-lg-12 {
+  display: flex;
+  justify-content: center; /* จัดกลางภายใน row */
 }
 
 .best-deal .tabs-content .nav-link {
@@ -858,12 +859,6 @@ Best Deal Style
   margin-left: 20px;
 }
 
-.best-deal .info-table {
-  border-radius: 10px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
-  padding: 35px 30px;
-}
-
 .best-deal .info-table ul li {
   display: block;
   margin-bottom: 24px;
@@ -885,25 +880,70 @@ Best Deal Style
   font-size: 20px;
   color: #1e1e1e;
   font-weight: 700;
-  float: right;
   display: inline-block;
 }
 
-.best-deal .tabs-content {
-  padding: 0px;
-  background-color: transparent;
+.best-deal .info-table {
+  width: 300px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+  padding: 1.5rem;
+  
 }
 
-.best-deal .tabs-content h4 {
-  font-size: 17px;
+.best-deal .info-table h3 {
+  font-size: 16px;
   font-weight: 600;
-  margin-bottom: 30px;
+  margin-bottom: 1rem;
+  display: inline-block;
 }
 
-.best-deal .icon-button {
-  margin-top: 30px;
+.best-deal .col-lg-3 p {
+  font-size: 18px;
+  font-weight: 600;
 }
 
+/*---------------------------------
+best-deals
+-----------------------------------*/
+.best-deals {
+  background-color: #fafafa;
+}
+
+.best-deals .section-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center; /* จัดกลางข้อความ */
+  padding: 20px;
+}
+
+.best-deals .col-lg-12 {
+  display: flex;
+  justify-content: center; /* จัดกลางภายใน row */
+}
+
+.best-deals .info-table {
+  width: 300px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+  padding: 1.5rem;
+}
+
+.best-deals .info-table h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.best-deals .col-lg-3 p {
+  font-size: 18px;
+  font-weight: 600;
+}
 
 /* 
 ---------------------------------------------
@@ -954,7 +994,7 @@ Properties Style
 .propertie .item .between span {
   color: #ffffff;
   border-radius: 15px;
-  background-color: #24aaf7;
+  background-color: #0088ff;
   padding: 5px;
 }
 
@@ -984,7 +1024,7 @@ Properties Style
 }
 
 .properties .item span.category {
-  background-color: #079bfd;
+  background-color: #0099ff;
   font-weight: 500;
   border-radius: 5px;
   font-size: 14px;

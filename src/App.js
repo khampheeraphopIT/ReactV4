@@ -11,6 +11,7 @@ import Profile from "./components/Profile";
 import Boooking from "./components/booking"
 import SearchRoom1 from "./components/SearchRoom1";
 import RoomDetails1 from "./components/RoomDetails1";
+import Contact1 from "./components/Contact1";
 function App() {
     return (
         <BrowserRouter>
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/booking" element={<Boooking />}></Route>
                 <Route path="/searchRoom1" element={<SearchRoom1 />}></Route>
                 <Route path="/roomDetails1/:roomId" element={<RoomDetails1 />}></Route>
+                <Route path="/Contact1" element={<Contact1 />}></Route>
             </Routes>
         </BrowserRouter>
     )

@@ -14,11 +14,13 @@ import properties_05 from '../assets/images/property-05.jpg'
 import properties_06 from '../assets/images/property-06.jpg'
 import phoneIcon from '../assets/images/phone-icon.png'
 import emailIcon from '../assets/images/email-icon.png'
+import HotelIcon from '@mui/icons-material/Hotel'
 import { Link } from 'react-router-dom';
 import Logo from '../assets/images/logo.jpg'
 import { Avatar } from '@mui/material';
 import '../assets/css/Sidebar.css'
 import Sidebar from '../components/sidebar'
+import BedIcon from '@mui/icons-material/Bed'
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -196,13 +198,13 @@ const Profile = () => {
                         <button
                           className={selectedRoom === 'SingleRoom' ? 'nav-link active' : 'nav-link'} id="SingleRoom-tab" data-bs-toggle="tab" data-bs-target="#SingleRoom"
                           type="button"
-                          onClick={() => setSelectedRoom('SingleRoom')}> SingleRoom </button>
+                          onClick={() => setSelectedRoom('SingleRoom')}> <HotelIcon style={{ fontSize: 50}}></HotelIcon> </button>
                       </li>
                       <li className="nav-item" role="presentation">
                         <button
                           className={selectedRoom === 'DoubleRoom' ? 'nav-link active' : 'nav-link'}
                           type="button"
-                          onClick={() => setSelectedRoom('DoubleRoom')}>Double Room</button>
+                          onClick={() => setSelectedRoom('DoubleRoom')}><BedIcon style={{ fontSize: 50}}></BedIcon></button>
                       </li>
                     </ul>
                   </div>
@@ -213,9 +215,8 @@ const Profile = () => {
                           <div className="col-lg-3">
                             <div className="info-table">
                               <ul>
-                                <li>Number of rooms <span>1</span></li>
                                 <li>Total Flat Space <span>225 m2</span></li>
-                                <li>Room Price <span>THB 3600</span></li>
+                                <li>Room Price <span>THB 3,600</span></li>
                                 <li>Payment Process <span>Bank</span></li>
                                 <li>Parking Available <span>Yes</span></li>
                               </ul>
@@ -240,9 +241,8 @@ const Profile = () => {
                           <div className="col-lg-3">
                             <div className="info-table">
                               <ul>
-                                <li>Number of rooms <span>4</span></li>
                                 <li>Total Flat Space <span>400 m2</span></li>
-                                <li>Room Price <span>THB 5000</span></li>
+                                <li>Room Price <span>THB 5,000</span></li>
                                 <li>Payment Process <span>Bank</span></li>
                                 <li>Parking Available <span>Yes</span></li>
                               </ul>
@@ -285,8 +285,8 @@ const Profile = () => {
                 <Link to={`/RoomDetails/1`}>
                   <img src={properties_01} alt="DELUXE VILLA" />
                 </Link>
-                <span className="category">Single Room</span>
-                <h6>THB 3500</h6>
+                <span className="category"><HotelIcon style={{ fontSize: 30}}></HotelIcon></span>
+                <h6>THB 3,500</h6>
                 <h4>DELUXE VILLA</h4>
                 <ul>
                   <li>Number of rooms: <span>1</span></li>
@@ -303,8 +303,8 @@ const Profile = () => {
                 <Link to={`/RoomDetails/2`}>
                   <img src={properties_02} alt="DELUXE VILLA" />
                 </Link>
-                <span className="category">Single Room</span>
-                <h6>THB 4000</h6>
+                <span className="category"><HotelIcon style={{ fontSize: 30}}></HotelIcon></span>
+                <h6>THB 4,000</h6>
                 <h4>PREMIER DELUXE VILLA</h4>
                 <ul>
                   <li>Number of rooms: <span>2</span></li>
@@ -321,8 +321,8 @@ const Profile = () => {
                 <Link to={`/RoomDetails/3`}>
                   <img src={properties_03} alt="DELUXE VILLA" />
                 </Link>
-                <span className="category">Single Room</span>
-                <h6>THB 5000</h6>
+                <span className="category"><HotelIcon style={{ fontSize: 30}}></HotelIcon></span>
+                <h6>THB 5,000</h6>
                 <h4>POOL VILLA</h4>
                 <ul>
                   <li>Number of rooms: <span>3</span></li>
@@ -339,8 +339,8 @@ const Profile = () => {
                 <Link to={`/RoomDetails/4`}>
                   <img src={properties_04} alt="DELUXE VILLA" />
                 </Link>
-                <span className="category">Double Room</span>
-                <h6>THB 6000</h6>
+                <span className="category"><BedIcon style={{ fontSize: 30}}></BedIcon></span>
+                <h6>THB 6,000</h6>
                 <h4>DELUXE VILLA</h4>
                 <ul>
                   <li>Number of rooms: <span>4</span></li>
@@ -357,8 +357,8 @@ const Profile = () => {
                 <Link to={`/RoomDetails/5`}>
                   <img src={properties_05} alt="DELUXE VILLA" />
                 </Link>
-                <span className="category">Double Room</span>
-                <h6>THB 6500</h6>
+                <span className="category"><BedIcon style={{ fontSize: 30}}></BedIcon></span>
+                <h6>THB 6,500</h6>
                 <h4>PREMIER DELUXE VILLA</h4>
                 <ul>
                   <li>Number of rooms: <span>5</span></li>
@@ -375,8 +375,8 @@ const Profile = () => {
                 <Link to={`/RoomDetails/6`}>
                   <img src={properties_06} alt="DELUXE VILLA" />
                 </Link>
-                <span className="category">Double Room</span>
-                <h6>THB 7500</h6>
+                <span className="category"><BedIcon style={{ fontSize: 30}}></BedIcon></span>
+                <h6>THB 7,500</h6>
                 <h4>POOL VILLA</h4>
                 <ul>
                   <li>Number of rooms: <span>6</span></li>

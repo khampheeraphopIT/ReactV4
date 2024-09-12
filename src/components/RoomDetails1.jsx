@@ -10,7 +10,8 @@ import Logo from '../assets/images/logo.jpg'
 import { Avatar } from '@mui/material';
 import '../assets/css/Sidebar.css'
 import Sidebar from '../components/sidebar'
-
+import HotelIcon from '@mui/icons-material/Hotel'
+import BedIcon from '@mui/icons-material/Bed'
 
 const images = {
     'property-01.jpg': properties_01,
@@ -44,12 +45,12 @@ const RoomDetails1 = () => {
         const fetchRoomDetails = async () => {
             // Dummy data, replace with actual fetch
             const rooms = [
-                { id: 1, type: 'single room', image: 'property-01.jpg', name: 'DELUXE VILLA', price: 3500, NumberOfRooms: 1, area: '15x15' },
-                { id: 2, type: 'single room', image: 'property-02.jpg', name: 'PREMIER DULUXE VILLA', price: 4000, NumberOfRooms: 2, area: '15x17' },
-                { id: 3, type: 'single room', image: 'property-03.jpg', name: 'POOL VILLA', price: 5000, NumberOfRooms: 3, area: '15x20' },
-                { id: 4, type: 'double room', image: 'property-04.jpg', name: 'DELUXE VILLA', price: 6000, NumberOfRooms: 4, area: '20x20' },
-                { id: 5, type: 'double room', image: 'property-05.jpg', name: 'PREMIER DELUXE VILLA', price: 6500, NumberOfRooms: 5, area: '25x25' },
-                { id: 6, type: 'double room', image: 'property-06.jpg', name: 'POOL VILLA', price: 7500, NumberOfRooms: 6, area: '30x30' }
+                { id: 1, type: <HotelIcon style={{ fontSize: 30 }}></HotelIcon>, image: 'property-01.jpg', name: 'DELUXE VILLA', price: '3,500', area: '15x15' },
+                { id: 2, type: <HotelIcon style={{ fontSize: 30 }}></HotelIcon>, image: 'property-02.jpg', name: 'PREMIER DULUXE VILLA', price: '4,000', area: '15x17' },
+                { id: 3, type: <HotelIcon style={{ fontSize: 30 }}></HotelIcon>, image: 'property-03.jpg', name: 'POOL VILLA', price: '5,000', area: '15x20' },
+                { id: 4, type: <BedIcon style={{ fontSize: 30 }}></BedIcon>, image: 'property-04.jpg', name: 'DELUXE VILLA', price: '6,000', area: '20x20' },
+                { id: 5, type: <BedIcon style={{ fontSize: 30 }}></BedIcon>, image: 'property-05.jpg', name: 'PREMIER DELUXE VILLA', price: '6,500', area: '25x25' },
+                { id: 6, type: <BedIcon style={{ fontSize: 30 }}></BedIcon>, image: 'property-06.jpg', name: 'POOL VILLA', price: '7,500', area: '30x30' }
             ];
             const roomDetails = rooms.find(room => room.id === parseInt(roomId));
             setRoom(roomDetails);
@@ -59,7 +60,10 @@ const RoomDetails1 = () => {
     }, [roomId]);
 
     const handleBookNow = () => {
-        navigate('/booking', { state: { room: room } })
+        // Remove the React Element (type) from the room object before navigating
+        const { type, ...roomWithoutIcons } = room;
+    
+        navigate('/booking', { state: { room: roomWithoutIcons } });
     }
 
     if (!room) {
@@ -68,6 +72,26 @@ const RoomDetails1 = () => {
 
     return (
         <div>
+
+            <div className="sub-header">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-8 col-md-8">
+                            <ul className="info">
+                                <li><i className="fa fa-envelope"></i> rsvn@baraliresort.com</li>
+                                <li><i className="fa fa-map"></i> Barali Beach Resort 10240</li>
+                            </ul>
+                        </div>
+                        <div className="col-lg-4 col-md-4">
+                            <ul className="social-links">
+                                <li><Link to="https://www.facebook.com/baraliresort/?locale=th_TH"><i className="fab fa-facebook"></i></Link></li>
+                                <li><Link to="https://www.instagram.com/barali_beach_resort/"><i className="fab fa-instagram"></i></Link></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <header className="header-area header-sticky">
                 <div className="container">
                     <div className="row">
@@ -79,25 +103,15 @@ const RoomDetails1 = () => {
                                 <ul className="nav">
                                     <li><Link to="/" className="active">Home</Link></li>
                                     <li><Link to="/SearchRoom">Search Room</Link></li>
-                                    <li><Link to="/Contact">Contact Us</Link></li>
+                                    <li><Link to="/Contact1">Contact Us</Link></li>
                                     <li><Link to="/SearchRoom"><i className="fa fa-calendar"></i><span>Book Now</span></Link></li>
-                                    {isLoggedIn ? (
-                                        <li><Avatar alt="Profile" onClick={handleSidebarToggle} /></li>
-                                    ) : (
-                                        <li><Avatar alt='Profile' onClick={handleSidebarToggle}></Avatar></li>
-                                    )}
+                                    <li><Link to='/login'><Avatar alt="Profile" /></Link></li>
                                 </ul>
                             </nav>
                         </div>
                     </div>
                 </div>
             </header>
-            <Sidebar
-                isOpen={isSidebarOpen}
-                onClose={handleSidebarToggle}
-                isLoggedIn={isLoggedIn}
-                handleLogout={handleLogout}
-            />
 
             <div className="page-heading header-text">
                 <div className="container">
@@ -109,26 +123,47 @@ const RoomDetails1 = () => {
                 </div>
             </div>
 
-            <div className="section propertie">
+            <div className="section best-deals">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">
-                            <div className="item">
-                                <div className='image-details'>
-                                    <img src={images[room.image]} alt={room.name} />
-                                    <div className='details'>
-                                        <h3><i class="fa-solid fa-money-check-dollar"></i>Price: THB {room.price}</h3> <hr />
-                                        <h3><i class="fa-solid fa-bed"></i>Number of rooms: {room.NumberOfRooms}</h3> <hr />
-                                        <h3><i class="fa-solid fa-hotel"></i>Area: {room.area}</h3> <hr />
-                                        <h3><i class="fa-solid fa-award"></i>Stay 2 Nights Extra Save 5%</h3> <hr />
+                            <div className="section-heading">
+                                <h6>| ROOM</h6>
+                                <h2>{room.name}</h2>
+                            </div>
+                        </div>
+                        <div className="col-lg-12">
+                            <div className="tabs-content">
+                                <div className="row">
+                                    <div className="nav-wrapper">
+                                    </div>
+                                    <div className="tab-content" id="myTabContent">
+                                        <div className="tab-pane fade show active" role="tabpanel">
+                                            <div className="row">
+                                                <div className="col-lg-3">
+                                                    <div className="info-table">
+                                                        <ul>
+                                                            <h3><i class="fa-solid fa-money-check-dollar"></i>Price: THB {room.price}</h3> <hr />
+                                                            <h3><i class="fa-solid fa-bed"></i>Number of rooms: {room.NumberOfRooms}</h3> <hr />
+                                                            <h3><i class="fa-solid fa-hotel"></i>Area: {room.area}</h3> <hr />
+                                                            <h3><i class="fa-solid fa-award"></i>Stay 2 Nights Extra Save 5%</h3> <hr />
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="col-lg-6">
+                                                    <img src={images[room.image]} alt="Deal01" />
+                                                </div>
+                                                <div className="col-lg-3">
+                                                    <p>Perfect for solo travelers, our Single Room offers a cozy space with one bed, ideal for rest and relaxation.
+                                                        <br /><br />The room is equipped with essential amenities such as a work desk, flat-screen TV, and complimentary Wi-Fi, ensuring a smooth and comfortable stay.</p>
+                                                    <div className="main-button">
+                                                        <button className='btn' onClick={handleBookNow}><i className="fa fa-calendar"></i> Room Details</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className='between'>
-                                    <span>{room.type}</span>
-                                    <button className='btn' onClick={handleBookNow}>Book Now</button>
-                                </div>
-                                <h1>{room.name}</h1> <hr /> <br />
-                                <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi ad dicta iste eum atque obcaecati recusandae sit odit placeat enim architecto itaque odio provident consequatur commodi quas impedit, nulla voluptatem, distinctio veritatis? Sint sunt vitae velit recusandae natus officiis corporis. Ipsam quam soluta id provident iste voluptas harum rerum laborum fugit ut sed commodi voluptatibus impedit, sequi modi itaque possimus eos, accusamus minus nihil at, a porro fugiat omnis! Iste iure veritatis doloribus molestiae, quo ut impedit commodi quas similique nisi atque dolore quos non mollitia dolores sequi animi explicabo beatae rerum itaque rem autem maxime? Necessitatibus vel soluta libero.</h5>
                             </div>
                         </div>
                     </div>

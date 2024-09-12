@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import phoneIcon from '../assets/images/phone-icon.png'
 import emailIcon from '../assets/images/email-icon.png'
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 
-const Contact = () => {
+const Contact1 = () => {
   const [isLoaded, setIsLoaded] = useState(true);
   const [user, setUser] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -29,41 +29,6 @@ const Contact = () => {
     setIsLoggedIn(false);
     navigate('/login');
   }
-
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (!token) {
-      navigate('/login');
-      return;
-    }
-
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + token);
-
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow"
-    };
-
-    fetch("http://localhost:3333/profile", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.status === 'ok') {
-          setUser(result.user)
-          setIsLoaded(false)
-        } else if (result.status === 'forbidden') {
-          MySwal.fire({
-            html: <i>{result.message}</i>,
-            icon: 'error'
-          }).then((value) => {
-            navigate('/')
-          })
-        }
-        console.log(result)
-      })
-      .catch((error) => console.error(error));
-  }, [MySwal, navigate])
 
   return (
     <>
@@ -95,23 +60,11 @@ const Contact = () => {
                   <img src={Logo} alt="" />
                 </a>
                 <ul className="nav">
-                  <li><Link to="/profile" className="active">Home</Link></li>
-                  <li><Link to="/SearchRoom">Search Room</Link></li>
-                  <li><Link to="/Contact">Contact Us</Link></li>
-                  <li><Link to="/SearchRoom"><i className="fa fa-calendar"></i><span>Book Now</span></Link></li>
-                  {isLoggedIn ? (
-                    <li>
-                      <Avatar
-                        src={user.image ? `data:image/jpeg;base64,${user.image}` : 'default-image-url'}
-                        alt={user.id}
-                        onClick={handleSidebarToggle}
-                      />
-                    </li>
-                  ) : (
-                    <li>
-                      <button onClick={handleSidebarToggle}>Login</button>
-                    </li>
-                  )}
+                  <li><Link to="/\" className="active">Home</Link></li>
+                  <li><Link to="/SearchRoom1">Search Room</Link></li>
+                  <li><Link to="/Contact1">Contact Us</Link></li>
+                  <li><Link to="/SearchRoom1"><i className="fa fa-calendar"></i><span>Book Now</span></Link></li>
+                  <li><Link to='/login'><Avatar alt="Profile" /></Link></li>
                 </ul>
               </nav>
             </div>
@@ -252,4 +205,4 @@ const Contact = () => {
   )
 }
 
-export default Contact;
+export default Contact1;
